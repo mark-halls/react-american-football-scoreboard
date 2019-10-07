@@ -11,14 +11,13 @@ function App() {
   const [homeScore, setHomeScore] = useState(32);
   const [awayScore, setAwayScore] = useState(32);
 
-  const homeScored = type =>
-    type === "Touchdown"
-      ? setHomeScore(homeScore + 7)
-      : setHomeScore(homeScore + 3);
-  const awayScored = type =>
-    type === "Touchdown"
-      ? setAwayScore(awayScore + 7)
-      : setAwayScore(awayScore + 3);
+  const IncrementScore = (team, amount) => {
+    if (team === "home") {
+      setHomeScore(homeScore + amount);
+    } else {
+      setAwayScore(awayScore + amount);
+    }
+  };
 
   return (
     <div className="container">
@@ -31,12 +30,12 @@ function App() {
           <ScoreButton
             team={"Home"}
             type={"Touchdown"}
-            setScore={() => homeScored("Touchdown")}
+            setScore={() => IncrementScore("home", 7)}
           />
           <ScoreButton
             team={"Home"}
             type={"fieldGoal"}
-            setScore={() => homeScored("fieldGoal")}
+            setScore={() => IncrementScore("home", 3)}
           />
           {/* TODO STEP 4 - Now we need to attach our state setter functions to click listeners. */}
         </div>
@@ -44,12 +43,12 @@ function App() {
           <ScoreButton
             team={"Away"}
             type={"Touchdown"}
-            setScore={() => awayScored("Touchdown")}
+            setScore={() => IncrementScore("away", 7)}
           />
           <ScoreButton
             team={"Away"}
             type={"fieldGoal"}
-            setScore={() => awayScored("fieldGoal")}
+            setScore={() => IncrementScore("away", 3)}
           />
         </div>
       </section>
